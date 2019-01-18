@@ -28,15 +28,8 @@ public class MenuMain {
         System.out.println("3. Delete File");
         System.out.println("4. Create Directory");
         System.out.println("5. Rename Directory");
-        System.out.println("6. Delete Directory");
-        System.out.println("7. View Files in a Directory");
-        System.out.println("8. Copy Directory");
-        System.out.println("9. Copy File");
-        System.out.println("10. Encrypt");
-        System.out.println("11. Decrypt");
-        System.out.println("12. Compress");
-        System.out.println("13. Decompress");
-        System.out.println("14. Exit");
+        System.out.println("6. View Files in a Directory");
+        System.out.println("7. Exit");
         System.out.println("*****************************************");
         System.out.println("\n\n Choose an option: ");
         choice = scanner.nextLine();
@@ -72,6 +65,36 @@ public class MenuMain {
                         strInputFile = scanner.nextLine();
                         fileUtility.deleteFile(strInputFile);
                         break;
+                    case "4":
+                        //ask user for path where the file should be created
+                        System.out.println("Enter the directory that you want to create: ");
+                        //get the path as input in strInputFile variable
+                        String strInputDirectory = scanner.nextLine();
+                        fileUtility.createDirectory(strInputDirectory);
+                        break;
+                    case "5":
+                        //ask user for path where the file should be created
+                        System.out.println("Enter the directory that you want to rename: ");
+                        //get the directory name as input in strInputFile variable
+                        strInputFile = scanner.nextLine();
+                        //ask user for new name that the directory should have
+                        System.out.println("Enter the new name (not path) of the directory: ");
+                        //get the new strNewDirectoryName variable
+                        String strNewDirectoryName = scanner.nextLine();
+                        fileUtility.renameDirectory(strInputFile, strNewDirectoryName);
+                        break;
+                    case "6":
+                        //ask user for path where the file should be created
+                        System.out.println("Enter the directory that you want to view: ");
+                        //get the directory name as input in strInputFile variable
+                        strInputFile = scanner.nextLine();
+                        fileUtility.viewDirectory(strInputFile);
+                        break;
+                    case "7":
+                        //exit
+                        System.out.print("Thank you. Exit....!");
+                        System.exit(0);
+                        break;
                     default:
                         //default
                         System.out.println("Invalid choice. Please enter a number between 1 to 14\n");
@@ -79,6 +102,6 @@ public class MenuMain {
             } else {
                 System.out.println("Please enter a number. ");
             }
-        }while (choice != "3");
+        }while (choice != "7");
     }//E.O.Main
 }//E.O.class
