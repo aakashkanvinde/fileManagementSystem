@@ -83,4 +83,54 @@ public class fileUtility {
             System.out.println("Invalid file path.");
         }
     }
+
+    public static void createDirectory(String inputDirectory) {
+        //get the filepath in File object
+        File file = new File(inputDirectory);
+        if (file.exists()) {
+            System.out.println("The directory is already present");
+        } else {
+            //use mkdir() and check its return value
+            file.mkdir();
+            System.out.println("The directory " + inputDirectory + " has been created.");
+        }
+    }
+
+    public static void renameDirectory(String inputFile, String newDirName) {
+        //get filepath in the File Object
+        File file = new File(inputFile);
+        if (file.isDirectory()) {
+            File newName = new File(file.getParent() + "/" + newDirName);
+            //use renameTo() and check its return value
+            if (file.renameTo(newName)) {
+                System.out.println("Directory has been renamed to " + newDirName);
+            } else {
+                System.out.println("Error in renaming the directory.");
+            }
+        } else {
+            System.out.println("Invalid file path or No such directory exists");
+        }
+    }
+
+    public static void viewDirectory(String inputDirectory) {
+        //get the file in the File object
+        File directory = new File(inputDirectory);
+        //check if it is a directory 
+        if (directory.isDirectory()) {
+            //check if the directory has children 
+            if (directory.listFiles().length == 0) {
+                System.out.println("Sorry, directory is empty!");
+            } //separate files and print [Folder] or [File]
+            else {
+                String listFiles[] = directory.list();
+                System.out.println("Following are files in the directory " + inputDirectory + " :\n ");
+                for (String listFile : listFiles) {
+                    File allFiles = new File(listFile);
+                    System.out.println("-> " + allFiles);
+                }
+            }
+        } else {
+            System.out.println("Invalid directory or path");
+        }
+    }    
 }
