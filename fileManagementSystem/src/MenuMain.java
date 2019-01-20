@@ -29,7 +29,8 @@ public class MenuMain {
         System.out.println("4. Create Directory");
         System.out.println("5. Rename Directory");
         System.out.println("6. View Files in a Directory");
-        System.out.println("7. Exit");
+        System.out.println("7. Delete Directory");
+        System.out.println("8. Exit");
         System.out.println("*****************************************");
         System.out.println("\n\n Choose an option: ");
         choice = scanner.nextLine();
@@ -91,6 +92,13 @@ public class MenuMain {
                         fileUtility.viewDirectory(strInputFile);
                         break;
                     case "7":
+                        //ask user for path where the file should be created
+                        System.out.println("Enter the directory that you want to delete: ");
+                        //get the directory name as input in strInputFile variable
+                        strInputFile = scanner.nextLine();
+                        fileUtility.deleteDirectory(strInputFile);
+                        break;
+                    case "8":
                         //exit
                         System.out.print("Thank you. Exit....!");
                         System.exit(0);
@@ -102,6 +110,6 @@ public class MenuMain {
             } else {
                 System.out.println("Please enter a number. ");
             }
-        }while (choice != "7");
+        }while (choice != "8");
     }//E.O.Main
 }//E.O.class
