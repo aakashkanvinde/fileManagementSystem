@@ -132,5 +132,57 @@ public class fileUtility {
         } else {
             System.out.println("Invalid directory or path");
         }
-    }    
+    }
+    
+    public static void deleteDirectory(String inputDirectory) {
+        //get the file path in the File object
+        File directory = new File(inputDirectory);
+        //check if it is a directory
+        if (directory.isDirectory()) {
+            //check if the directory has children
+            if (directory.listFiles().length == 0) {
+                directory.delete();
+                System.out.println("Directory is deleted: "
+                        + directory.getAbsolutePath());
+            } else {
+                //ask user whether he wants to delete the directory
+                System.out.println("The chosen directory contains few files.");
+                viewDirectory(inputDirectory);
+                System.out.println("Do you really want to delete the whole directory: \n 1.Yes\n 2.No");
+                Scanner userInput = new Scanner(System.in);
+                String userRes = userInput.nextLine();
+                if (userRes.equalsIgnoreCase("yes") || userRes.equalsIgnoreCase("1")) {
+                    //delete files inside the directory one by one
+                    deleteFilesInsideDirectory(directory);
+                    //delete parent directory
+                    directory.delete();
+                    if (!directory.exists()) {
+                        System.out.println("Directory has been deleted.");
+                    } else {
+                        System.out.println("Deletion failed");
+                    }
+                } else if (userRes.equalsIgnoreCase("no") || userRes.equalsIgnoreCase("2")) {
+                    System.out.println("Delete directory request cancelled by user.");
+                } else {
+                    deleteDirectory(inputDirectory);
+                }
+            }
+        } else {
+            System.out.println("Invalid path or directory.");
+        }
+    }
+    private static void deleteFilesInsideDirectory(File element) {
+        if (element.isDirectory()) {                  //if file inside the main directory is itself a directory 
+            if (element.listFiles().length == 0) {    //and is an empty directory, then delete it
+                //delete directory
+                element.delete();
+            } else {
+                //delete files one by one
+                for (File file : element.listFiles()) {
+                    deleteFilesInsideDirectory(file);
+                }
+            }//E.O. else
+        }// E.O. outer IF
+        element.delete();
+    }
 }
