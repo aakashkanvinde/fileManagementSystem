@@ -185,4 +185,21 @@ public class fileUtility {
         }// E.O. outer IF
         element.delete();
     }
+    public static void copyFile(String inputPath, String outputPath) throws IOException{
+        File inputFile = new File(inputPath);
+        File outputFile = new File(outputPath + "/" + inputFile.getName());
+        //check if same fileName or directoryName does not exist
+        if(inputFile.isFile()){
+            InputStream is = new FileInputStream(inputFile);
+            OutputStream os = new FileOutputStream(outputFile);
+            byte [] buffer = new byte[1024];
+            int length;
+            //write the streams to OutputStream to copy the data
+            while((length = is.read(buffer)) > 0){
+                os.write(buffer, 0, length);
+            }
+        }else
+            System.out.println("Please enter a valid file path");
+    }
+    
 }
