@@ -201,5 +201,32 @@ public class fileUtility {
         }else
             System.out.println("Please enter a valid file path");
     }
+    public static void copy(File inputPath, File outputPath) throws IOException {
+        if (inputPath.isDirectory()) {
+            copyDirectory(inputPath, outputPath);
+        } else {
+            copyFile(inputPath, outputPath);
+        }
+    }
+    private static void copyDirectory(File source, File target) throws IOException {
+        if (!target.exists()) {
+            target.mkdir();
+        }
+
+        for (String file : source.list()) {
+            copy(new File(source, file), new File(target, file));
+        }
+    }
+    private static void copyFile(File source, File target) throws IOException {
+        try (
+                InputStream in = new FileInputStream(source);
+                OutputStream out = new FileOutputStream(target)) {
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = in.read(buffer)) > 0) {
+                out.write(buffer, 0, length);
+            }
+        }
+    }
     
 }
