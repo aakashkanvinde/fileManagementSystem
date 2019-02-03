@@ -31,7 +31,8 @@ public class MenuMain {
         System.out.println("6. View Files in a Directory");
         System.out.println("7. Delete Directory");
         System.out.println("8. Copy File");
-        System.out.println("9. Exit");
+        System.out.println("9. Copy Directory");
+        System.out.println("10. Exit");
         System.out.println("*****************************************");
         System.out.println("\n\n Choose an option: ");
         choice = scanner.nextLine();
@@ -109,6 +110,18 @@ public class MenuMain {
                         fileUtility.copyFile(strInputFile,strOutputPath);
                         break;
                     case "9":
+                        //ask user for path where the file should be created
+                        System.out.println("Enter the directory path that you want to copy: ");
+                        //get the directory path as input in strInputFile variable
+                        strInputFile = scanner.nextLine();
+                        System.out.println("Enter the path where the directory should be pasted: ");
+                        //get the path in strOutputPath
+                        strOutputPath = scanner.nextLine();
+                        File strInputFile2 = new File(strInputFile);
+                        File strOutputFile2 = new File(strOutputPath);
+                        fileUtility.copy(strInputFile2,strOutputFile2);
+                        break;
+                    case "10":
                         //exit
                         System.out.print("Thank you. Exit....!");
                         System.exit(0);
@@ -120,6 +133,6 @@ public class MenuMain {
             } else {
                 System.out.println("Please enter a number. ");
             }
-        }while (choice != "9");
+        }while (choice != "10");
     }//E.O.Main
 }//E.O.class
